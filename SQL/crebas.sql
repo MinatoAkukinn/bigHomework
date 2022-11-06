@@ -4,62 +4,62 @@
 /*==============================================================*/
 
 
-drop table if exists ÎïÆ·;
+drop table if exists ç‰©å“;
 
-drop table if exists ÓÃ»§;
+drop table if exists ç”¨æˆ·;
 
-drop table if exists ¶©µ¥;
+drop table if exists è®¢å•;
 
 /*==============================================================*/
-/* Table: ÎïÆ·                                                    */
+/* Table: ç‰©å“                                                    */
 /*==============================================================*/
-create table ÎïÆ·
+create table ç‰©å“
 (
-   ÎïÆ·ID                 int not null,
-   ÓÃ»§ID                 int not null,
-   ÎïÆ·Ãû×Ö                 char(24) not null,
-   ÎïÆ·½éÉÜ                 char(256) not null,
-   ÎïÆ·ÖÖÀà                 char(24) not null,
-   ÎïÆ·Í¼Æ¬                 longblob not null,
-   primary key (ÎïÆ·ID)
+   ç‰©å“ID                 int not null,
+   ç”¨æˆ·ID                 int not null,
+   ç‰©å“åå­—                 char(24) not null,
+   ç‰©å“ä»‹ç»                 char(256) not null,
+   ç‰©å“ç§ç±»                 char(24) not null,
+   ç‰©å“å›¾ç‰‡                 longblob not null,
+   primary key (ç‰©å“ID)
 );
 
 /*==============================================================*/
-/* Table: ÓÃ»§                                                    */
+/* Table: ç”¨æˆ·                                                    */
 /*==============================================================*/
-create table ÓÃ»§
+create table ç”¨æˆ·
 (
-   ÓÃ»§ID                 int not null,
-   ÓÃ»§Ãû                  char(16) not null,
-   ÃÜÂë                   char(16) not null,
-   ĞÕÃû                   char(16) not null,
-   ĞÔ±ğ                   char(2) not null,
-   Ñ§ºÅ                   char(16) not null,
-   ÊÖ»úºÅ                  char(16) not null,
-   Í·Ïñ                   char(256) not null,
-   primary key (ÓÃ»§ID),
-   unique (Ñ§ºÅ, ÊÖ»úºÅ, ÓÃ»§Ãû)
+   ç”¨æˆ·ID                 int not null,
+   ç”¨æˆ·å                  char(16) not null,
+   å¯†ç                    char(16) not null,
+   å§“å                   char(16) not null,
+   æ€§åˆ«                   char(2) not null,
+   å­¦å·                   char(16) not null,
+   æ‰‹æœºå·                  char(16) not null,
+   å¤´åƒ                   char(256) not null,
+   primary key (ç”¨æˆ·ID),
+   unique (å­¦å·, æ‰‹æœºå·, ç”¨æˆ·å)
 );
 
 /*==============================================================*/
-/* Table: ¶©µ¥                                                    */
+/* Table: è®¢å•                                                    */
 /*==============================================================*/
-create table ¶©µ¥
+create table è®¢å•
 (
-   ÎïÆ·ID                 int not null,
-   ÓÃ»§ID                 int not null,
-   ¶©µ¥ID                 int,
-   ¿ªÊ¼Ê±¼ä                 date,
-   ½áÊøÊ±¼ä                 date,
-   primary key (ÎïÆ·ID, ÓÃ»§ID)
+   ç‰©å“ID                 int not null,
+   ç”¨æˆ·ID                 int not null,
+   è®¢å•ID                 int,
+   å¼€å§‹æ—¶é—´                 date,
+   ç»“æŸæ—¶é—´                 date,
+   primary key (ç‰©å“ID, ç”¨æˆ·ID)
 );
 
-alter table ÎïÆ· add constraint FK_Relationship_1 foreign key (ÓÃ»§ID)
-      references ÓÃ»§ (ÓÃ»§ID) on delete restrict on update restrict;
+alter table ç‰©å“ add constraint FK_Relationship_1 foreign key (ç”¨æˆ·ID)
+      references ç”¨æˆ· (ç”¨æˆ·ID) on delete restrict on update restrict;
 
-alter table ¶©µ¥ add constraint FK_Relationship_3 foreign key (ÓÃ»§ID)
-      references ÓÃ»§ (ÓÃ»§ID) on delete restrict on update restrict;
+alter table è®¢å• add constraint FK_Relationship_3 foreign key (ç”¨æˆ·ID)
+      references ç”¨æˆ· (ç”¨æˆ·ID) on delete restrict on update restrict;
 
-alter table ¶©µ¥ add constraint FK_Relationship_4 foreign key (ÎïÆ·ID)
-      references ÎïÆ· (ÎïÆ·ID) on delete restrict on update restrict;
+alter table è®¢å• add constraint FK_Relationship_4 foreign key (ç‰©å“ID)
+      references ç‰©å“ (ç‰©å“ID) on delete restrict on update restrict;
 
