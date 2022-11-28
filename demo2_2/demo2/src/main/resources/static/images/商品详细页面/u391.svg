@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="63px" height="27px" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M 0 0  L 1024 0  L 1024 1024  L 0 1024  Z " fill-rule="evenodd" fill="black" id="path41" />
+    <clipPath id="clip42">
+      <use xlink:href="#path41" />
+    </clipPath>
+    <filter x="-50.00%" y="-50.00%" width="200.00%" height="200.00%" filterUnits="objectBoundingBox" id="filter43">
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0  " in="SourceGraphic" />
+    </filter>
+  </defs>
+  <g transform="matrix(1 0 0 1 -1065 -584 )">
+    <g transform="matrix(0.0263671875 0 0 0.0263671875 1083 584 )" clip-path="url(#clip42)" filter="url(#filter43)">
+      <path d="M804 512L637.6 345.6l45.6-45.6L894.4 512h1.6v64H128v-64h676z" p-id="3714" fill="#4DC5B9"></path>
+    </g>
+  </g>
+</svg>

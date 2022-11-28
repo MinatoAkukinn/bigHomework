@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.ObjectsMapper">
+
+    <resultMap id="ObjectsMapper" type="com.example.entity.Objects">
+    <id column="objectId" property="objectId"></id>
+    </resultMap>
+
+    <select id="findNewListByObjectType" resultType="com.example.entity.Objects">
+        select * from object where status= true and (ObjectType='${objectType}' or ObjectType='${objectType2}') order by shelfTime desc limit 0,5;
+    </select>
+
+<select id="findObjectsByObjectId" resultType="com.example.entity.Objects">
+    select * from object where ObjectID=${objectId};
+</select>
+<select id="findCommentsByObjectId" resultType="com.example.entity.comments">
+    select * from comment,object where object.UserID=comment.UserCommedID and ObjectID =${objectId};
+</select>
+    <insert id="Insert" useGeneratedKeys="true" keyProperty="objectId">
+        insert into object(UserId,ObjectName,ObjectIntro,ObjectType,ObjectPhoto,Status,ShelfTime) values (
+                      #{userId},#{objectName}, #{objectIntro},#{objectType},#{objectPhoto},#{status},  #{shelfTime}     )
+    </insert>
+    <select id="findObjectListByObjectType" resultType="com.example.entity.Objects">
+        Select * from object where Status= true and ObjectType = '${objectType}';
+    </select>
+</mapper>

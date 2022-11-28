@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMapper">
+
+        <resultMap id="UserMapper" type="com.example.entity.Users">
+                <id column="userId" property="userId"></id>
+        </resultMap>
+
+        <insert id="insert" useGeneratedKeys="true" keyProperty="userId">
+                insert into users(userName,`userPass`,realName,stuNo,phone,photo,email,userInfo)values (
+                   #{userName},#{userPass},#{realName},#{stuNo},#{phone},#{photo},#{email},#{userInfo}    )
+        </insert>
+
+        <select id="findByUsername" resultType="com.example.entity.Users">
+                select * from users where username=#{username}
+        </select>
+        <update id="updatePasswordByUid">
+                update users set `UserPass`=#{userPass} where UserID=${userId};
+        </update>
+        <select id="findByUserId" resultType="com.example.entity.Users">
+                select * from users where UserID=${userId};
+        </select>
+        <update id="updateInfoByUid" >
+                update users set
+                <if test="phone!=null">phone = #{phone},</if>
+                <if test="email!=null">email = #{email},</if>
+
+                userInfo = #{userInfo}
+
+                where UserID=${userId};
+
+        </update>
+        <update id="updatePhotoByUserId">
+                update users set
+                                 photo='${photo}' where userId=${userId};
+        </update>
+</mapper>

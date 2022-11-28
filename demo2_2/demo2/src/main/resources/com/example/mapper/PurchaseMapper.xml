@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.PurchaseMapper">
+
+    <resultMap id="PurchaseMapper" type="com.example.entity.Purchase">
+        <id column="purchaseId" property="purchaseId"></id>
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="purchaseId">
+        insert into Purchase(ObjectID, UserID, StartTime, EndTime, PurchaseStatus, TotalPrice) values (
+                      #{objectId},#{userId},#{startTime},#{endTime},#{purchaseStatus},#{totalPrice}                                                                                           )
+    </insert>
+    <select id="getPurchasesByUserId">
+        Select * from purchase where UserID=#{userId} order by StartTime;
+    </select>
+</mapper>
