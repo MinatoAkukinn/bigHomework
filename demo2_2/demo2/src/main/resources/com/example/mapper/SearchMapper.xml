@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.SearchMapper">
+
+
+    <select id="countBySearch" resultType="java.lang.Integer">
+        Select count(*) from object where ObjectName regexp #{search} and Status=true;
+    </select>
+
+    <select id="selectBySearch" resultType="com.example.entity.Objects">
+        Select * from object where ObjectName regexp #{search} and Status = true order by ShelfTime desc limit #{page},#{size};
+    </select>
+
+    <select id="selectByType" resultType="com.example.entity.Objects">
+        Select * from object where ObjectType = #{search} and Status = true  order by ShelfTime desc limit #{page},#{size};
+    </select>
+
+</mapper>

@@ -1,6 +1,8 @@
 package com.example;
 
+import com.example.entity.Queries;
 import com.example.entity.Users;
+import com.example.mapper.SearchMapper;
 import com.example.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ class DemoApplicationTests {
     //语法错误,但是本身没有错误
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private SearchMapper searchMapper;
     @Test
     void contextLoads() {
     }
@@ -41,5 +45,27 @@ class DemoApplicationTests {
     public void findByUsername(){
         Users user=userMapper.findByUsername("小玉");
         System.out.println(user);
+    }
+    @Test
+    public void search(){
+        Queries queries=new Queries();
+        queries.setSearch("IPAD");
+        System.out.println(searchMapper.countBySearch(queries));
+    }
+    @Test
+    public void searchReal(){
+        Queries queries=new Queries();
+        queries.setSearch("IPAD");
+        queries.setPage(1);
+        queries.setSize(5);
+        System.out.println(searchMapper.selectBySearch(queries));
+    }
+    @Test
+    public void fenlei(){
+        Queries queries=new Queries();
+        queries.setSearch("电脑");
+        queries.setPage(1);
+        queries.setSize(5);
+        System.out.println(searchMapper.selectByType(queries));
     }
 }
