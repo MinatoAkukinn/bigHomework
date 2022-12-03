@@ -25,4 +25,15 @@
     <select id="findObjectListByObjectType" resultType="com.example.entity.Objects">
         Select * from object where Status= true and ObjectType = '${objectType}';
     </select>
+    <update id="UpdateObjectById">
+        update object set
+                          ObjectType=#{objectType},ObjectPhoto=#{objectPhoto},ObjectIntro=#{objectIntro},ObjectName=#{objectName},Status=#{status},ShelfTime=#{shelfTime}
+                      where ObjectID=${objectId};
+    </update>
+    <select id="findUserByObjectId" resultType="java.lang.Integer">
+        Select userId from object where ObjectID=#{objectId} and status=true;
+    </select>
+    <select id="finObjectsByUserId" resultType="com.example.entity.Objects">
+        Select * from object where UserID=#{userId} order by ShelfTime desc;
+    </select>
 </mapper>

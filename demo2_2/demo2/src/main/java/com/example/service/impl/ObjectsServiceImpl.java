@@ -49,4 +49,19 @@ private ObjectsMapper objectMapper;
     public List<Objects> findObjectListByObjectType(String objectType) {
         return objectMapper.findObjectListByObjectType(objectType);
     }
+
+    @Override
+    public Integer updateObject(Objects objects) {
+        return objectMapper.UpdateObjectById(objects);
+    }
+
+    @Override
+    public Integer findUserIdByObjectId(Integer objectId) {
+        return objectMapper.findUserIdByObjectId(objectId);
+    }
+
+    @Override
+    public List<Objects> findObjectListByUserId(Integer userId) {
+        return objectMapper.finObjectsByUserId(userId);
+    }
 }

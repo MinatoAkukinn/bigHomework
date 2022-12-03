@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
@@ -66,5 +67,30 @@ public class ObjectApplicationTests {
     public void FindFENLEILIST(){
         System.out.println( objectMapper.findObjectListByObjectType("手机"));
 
+    }
+    @Test
+    public void Alter(){
+        try{
+            Objects objects = new Objects();
+            objects.setObjectId(303);
+            objects.setObjectName("你是谁啊");
+            objects.setObjectPhoto("修改测试");
+            objects.setObjectIntro("修改测试123");
+            objects.setObjectType("测试");
+            objects.setShelfTime(new Date());
+            objectMapper.UpdateObjectById(objects);
+        }catch (Exception e){
+            System.out.println(e.getClass().getSimpleName());
+            System.out.println(e.getMessage());
+        }
+
+    }
+    @Test
+    public void findId(){
+        System.out.println(objectMapper.findUserIdByObjectId(302));
+    }
+    @Test
+    public void myObjects(){
+        System.out.println(objectMapper.finObjectsByUserId(1));
     }
 }

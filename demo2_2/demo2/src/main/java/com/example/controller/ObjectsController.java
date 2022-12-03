@@ -69,7 +69,7 @@ public class ObjectsController extends BaseController{
     @ApiOperation("上传物品")
     @ApiResponses({
             @ApiResponse(code=200,message = "成功"),
-            @ApiResponse(code=4041,message = "用户不存在"),
+            @ApiResponse(code=3001,message = "用户名不匹配"),
             @ApiResponse(code=6001,message = "文件为空"),
             @ApiResponse(code=6002,message = "文件过大"),
             @ApiResponse(code=6003,message = "文件类型错误"),
@@ -120,6 +120,68 @@ public class ObjectsController extends BaseController{
     @RequestMapping(value="category",method = RequestMethod.GET)
     @ApiOperation("获取分类物品")
     public JsonResult<List<Objects>> getCategory(String objectType){
-        return null;
+        List<Objects> list=objectService.findObjectListByObjectType(objectType);
+        return new JsonResult<>(OK,list);
+
+    }
+    @RequestMapping(value="myObjects",method =RequestMethod.GET)
+    @ApiOperation("获取我的物品")
+    public JsonResult<List<Objects>> getMyObjects(HttpSession session){
+        Integer userId=getUserIdFromSession(session);
+        List<Objects> list=objectService.findObjectListByUserId(userId);
+        if(list.isEmpty()||list==null) throw new ObjectsNotFoundException();
+        return new JsonResult<>(OK,list);
+    }
+
+    @RequestMapping(value="changeObjectInfor",method = RequestMethod.PUT)
+    @ApiOperation(value = "修改物品信息")
+    @ApiResponses({
+            @ApiResponse(code=200,message = "成功"),
+            @ApiResponse(code=3001,message = "用户名不匹配"),
+            @ApiResponse(code=5012,message = "更新数据产生未知异常"),
+            @ApiResponse(code=6001,message = "文件为空"),
+            @ApiResponse(code=6002,message = "文件过大"),
+            @ApiResponse(code=6003,message = "文件类型错误"),
+            @ApiResponse(code=6004,message = "文件状态"),
+            @ApiResponse(code=6005,message = "上传错误")
+    })
+    public JsonResult<Objects> changeObjectInfor(HttpSession session, @RequestPart("file") MultipartFile file,Objects objects){
+        if(file.isEmpty()) throw new FileEmptyException();
+        //最大尺寸10MB
+        if(file.getSize()>10*1024*1024) throw new FileSizeException();
+        String contentType=file.getContentType();
+        if(!PHOTO_TYPE.contains(contentType)) throw new FileTypeException();
+        Integer userId= getUserIdFromSession(session);
+
+        Integer getId= objectService.findUserIdByObjectId(objects.getObjectId());
+        if(userId!=getId) throw new UsernameDuplicatedException();
+        //后续需要修改
+        //输入文件
+        String p="D:\\uploads";
+        System.out.println(p);
+//创建文件夹
+        File dir=new File(p);
+        if(!dir.exists()) dir.mkdir();
+//修改名字
+        String FileName=file.getOriginalFilename();
+        System.out.println("fn="+FileName);
+        int index=FileName.lastIndexOf(".");
+        String suffix=FileName.substring(index);
+        String newFileName= UUID.randomUUID().toString().toUpperCase()+suffix;
+        //创建图片,此时为空文件
+        System.out.println(newFileName);
+        File dest=new File(dir,newFileName);
+
+        try{
+            file.transferTo(dest);
+        } catch (FileStateException e) {
+            throw new FileStateException();
+        } catch (IOException e){
+            throw new FileUploadIOException();
+        }
+        String photo="show/"+newFileName;
+        objects.setShelfTime(new Date());
+        objects.setObjectPhoto(photo);
+        return new JsonResult<>(OK);
     }
 }

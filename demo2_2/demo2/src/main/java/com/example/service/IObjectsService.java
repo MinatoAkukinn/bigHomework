@@ -11,4 +11,9 @@ public interface IObjectsService {
     List<comments> findCommentsByObjectId(Integer objectId);
     Integer Insert(Objects object);
     List<Objects> findObjectListByObjectType(String objectType);
+    Integer updateObject(Objects objects);
+
+    Integer findUserIdByObjectId(Integer objectId);
+
+    List<Objects> findObjectListByUserId(Integer userId);
 }

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
@@ -52,6 +53,18 @@ class SearchControllerTest {
                 .param("type","手机")
                 .param("page","1")
                 ).andDo(print());
+//不存在分类
+        mockMvc.perform(MockMvcRequestBuilders.post("/search/searchByType")
+                .sessionAttr("userId","1")
+                .param("type","试试")
+                .param("page","1")
+        ).andDo(print());
+//不存在页数
+        mockMvc.perform(MockMvcRequestBuilders.post("/search/searchByType")
+                .sessionAttr("userId","1")
+                .param("type","手机")
+                .param("page","20")
+        ).andDo(print());
 
     }
 }

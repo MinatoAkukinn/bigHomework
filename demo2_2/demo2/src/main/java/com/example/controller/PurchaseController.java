@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.entity.Purchase;
 import com.example.service.IPurchaseService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +14,7 @@ import java.util.List;
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @RestController
 @RequestMapping(value = "/purchase" )
+@Api(tags= "订单",description = "")
 public class PurchaseController extends BaseController{
     @Autowired
     private IPurchaseService purchaseService;
