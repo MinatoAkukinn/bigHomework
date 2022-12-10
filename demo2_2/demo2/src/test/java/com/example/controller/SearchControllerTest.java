@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 class SearchControllerTest {
     @Autowired
     private WebApplicationContext wac;
-    @Autowired
+
     private MockMvc mockMvc;
     private MockHttpSession session;
     @Before
@@ -48,23 +48,43 @@ class SearchControllerTest {
     public void searchByType() throws Exception {
 
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/search/searchByType")
+        mockMvc.perform(MockMvcRequestBuilders.get("/search/searchByType")
                         .sessionAttr("userId","1")
                 .param("type","手机")
                 .param("page","1")
                 ).andDo(print());
 //不存在分类
-        mockMvc.perform(MockMvcRequestBuilders.post("/search/searchByType")
+        mockMvc.perform(MockMvcRequestBuilders.get("/search/searchByType")
                 .sessionAttr("userId","1")
                 .param("type","试试")
                 .param("page","1")
         ).andDo(print());
 //不存在页数
-        mockMvc.perform(MockMvcRequestBuilders.post("/search/searchByType")
+        mockMvc.perform(MockMvcRequestBuilders.get("/search/searchByType")
                 .sessionAttr("userId","1")
                 .param("type","手机")
                 .param("page","20")
         ).andDo(print());
 
+    }
+    @Transactional
+    @Test
+    @Rollback(value = true)
+    public void searchByPage() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders.get("/search/searchByPage")
+                .sessionAttr("userId","1")
+                .param("search","IPAD")
+                .param("page","1")
+        ).andDo(print());
+        mockMvc.perform(MockMvcRequestBuilders.get("/search/searchByPage")
+                .sessionAttr("userId","1")
+                .param("search","XIAOMI")
+                .param("page","1")
+        ).andDo(print());
+        mockMvc.perform(MockMvcRequestBuilders.get("/search/searchByPage")
+                .sessionAttr("userId","1")
+                .param("search","IPAD")
+                .param("page","10")
+        ).andDo(print());
     }
 }

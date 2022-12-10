@@ -17,12 +17,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/search" )
-@Api(tags= "搜索/分类",description = "")
+@Api(tags= "搜索分类",description = "")
 public class SearchController extends BaseController{
     @Autowired
     private ISearchService searchService;
-    @RequestMapping(value="searchByPage",method = RequestMethod.GET)
-    @ApiOperation(value="获取分类物品")
+    @RequestMapping(value="/searchByPage",method = RequestMethod.GET)
+    @ApiOperation(value="搜索物品")
     @ApiResponses({
             @ApiResponse(code=200,message = "成功"),
             @ApiResponse(code=7001,message = "商品名不存在"),
@@ -34,9 +34,11 @@ public class SearchController extends BaseController{
         queries.setSize(5);
         queries.setPage(queries.getSize()*page);
         List<Objects> list=searchService.getObjectsBySearch(queries);
+        if(list==null||list.isEmpty())
+            throw new ObjectsNotFoundException();
         return new JsonResult<>(OK,list);
     }
-    @RequestMapping(value = "searchByType",method =RequestMethod.GET)
+    @RequestMapping(value = "/searchByType",method =RequestMethod.GET)
     @ApiOperation(value="获取分类物品")
     @ApiResponses({
             @ApiResponse(code=200,message = "成功"),

@@ -133,7 +133,7 @@ public class ObjectsController extends BaseController{
         return new JsonResult<>(OK,list);
     }
 
-    @RequestMapping(value="changeObjectInfor",method = RequestMethod.PUT)
+    @RequestMapping(value="changeObjectInfor")
     @ApiOperation(value = "修改物品信息")
     @ApiResponses({
             @ApiResponse(code=200,message = "成功"),
@@ -182,6 +182,7 @@ public class ObjectsController extends BaseController{
         String photo="show/"+newFileName;
         objects.setShelfTime(new Date());
         objects.setObjectPhoto(photo);
+        objectService.updateObject(objects);
         return new JsonResult<>(OK);
     }
 }
